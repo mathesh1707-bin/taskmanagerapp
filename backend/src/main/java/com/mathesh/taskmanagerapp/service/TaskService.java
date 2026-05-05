@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.mathesh.taskmanagerapp.exception.ResourceNotFoundException;
 import com.mathesh.taskmanagerapp.model.Task;
 import com.mathesh.taskmanagerapp.repository.TaskRepository;
 
@@ -26,11 +27,11 @@ public class TaskService {
     }
 
     public Task findById(Long taskId) {
-        return repo.findById(taskId).orElseThrow(() -> new RuntimeException("Task not found"));
+        return repo.findById(taskId).orElseThrow(() -> new ResourceNotFoundException("Task not found"));
     }
 
     public Task updateTask(Long taskId, Task task) {
-        Task existing = repo.findById(taskId).orElseThrow(() -> new RuntimeException("Task not found for updating"));
+        Task existing = repo.findById(taskId).orElseThrow(() -> new ResourceNotFoundException("Task not found for updating"));
         existing.setDescription(task.getDescription());
         existing.setStatus(task.getStatus());
         existing.setTitle(task.getTitle());
@@ -39,7 +40,7 @@ public class TaskService {
     
     public void deleteTask(Long taskId) {
         if (!repo.existsById(taskId)){
-            throw new RuntimeException("Task not found");
+            throw new ResourceNotFoundException("Task not found");
         }
         repo.deleteById(taskId); 
     }
