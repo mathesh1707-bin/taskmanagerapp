@@ -2,6 +2,8 @@ package com.mathesh.taskmanagerapp.controller;
 
 import org.springframework.web.bind.annotation.RestController;
 
+import com.mathesh.taskmanagerapp.dto.task.TaskRequest;
+import com.mathesh.taskmanagerapp.dto.task.TaskResponse;
 import com.mathesh.taskmanagerapp.model.Task;
 import com.mathesh.taskmanagerapp.service.TaskService;
 
@@ -29,23 +31,23 @@ public class TaskController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Task>> getTasks() {
-        return ResponseEntity.ok(service.getAllTasks());
+    public List<TaskResponse> getTasks() {
+        return service.getAllTasks();
     }
 
     @PostMapping
-    public ResponseEntity<Task> saveTask(@RequestBody Task task) {
-        return ResponseEntity.status(201).body(service.saveTask(task));
+    public TaskResponse saveTask(@RequestBody TaskRequest request) {
+        return service.saveTask(request);
     }
 
     @GetMapping("/{taskId}")
-    public ResponseEntity<Task> getTaskById(@PathVariable Long taskId) {
-        return ResponseEntity.ok(service.findById(taskId));
+    public TaskResponse getTask(@PathVariable Long taskId) {
+        return service.findById(taskId);
     }
 
     @PutMapping("/{taskId}")
-    public ResponseEntity<Task> updateTask(@PathVariable Long taskId, @RequestBody Task task) {
-        return ResponseEntity.ok(service.updateTask(taskId, task));
+    public TaskResponse updateTask(@PathVariable Long taskId,@RequestBody TaskRequest request) {
+        return service.updateTask(taskId, request);
     }
 
     @DeleteMapping("/{taskId}")

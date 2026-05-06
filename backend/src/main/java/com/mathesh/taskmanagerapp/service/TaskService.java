@@ -2,47 +2,91 @@ package com.mathesh.taskmanagerapp.service;
 
 import java.util.List;
 
-
 import org.springframework.stereotype.Service;
 
+import com.mathesh.taskmanagerapp.dto.task.TaskRequest;
+import com.mathesh.taskmanagerapp.dto.task.TaskResponse;
 import com.mathesh.taskmanagerapp.exception.ResourceNotFoundException;
 import com.mathesh.taskmanagerapp.model.Task;
+import com.mathesh.taskmanagerapp.model.User;
 import com.mathesh.taskmanagerapp.repository.TaskRepository;
+import com.mathesh.taskmanagerapp.repository.UserRepository;
 
 @Service
 public class TaskService {
-    
-    private TaskRepository repo;
 
-    public TaskService(TaskRepository repo) {
+    private final TaskRepository repo;
+    private final UserRepository userRepo;
+
+    public TaskService(TaskRepository repo, UserRepository userRepo) {
         this.repo = repo;
-    }
-    
-    public List<Task> getAllTasks() {
-        return repo.findAll();
+        this.userRepo = userRepo;
     }
 
-    public Task saveTask(Task task) {
-        return repo.save(task);
+    // 🔁 ENTITY → DTO
+    private TaskResponse mapToResponse(Task task) {
+        return new TaskResponse(
+            task.getTaskId(),
+            task.getTitle(),
+            task.getDescription(),
+            task.getStatus(),
+            task.getUser().getUserId()
+        );
     }
 
-    public Task findById(Long taskId) {
-        return repo.findById(taskId).orElseThrow(() -> new ResourceNotFoundException("Task not found"));
+    // 📥 GET ALL
+    public List<TaskResponse> getAllTasks() {
+        return repo.findAll()
+                   .stream()
+                   .map(this::mapToResponse)
+                   .toList();
     }
 
-    public Task updateTask(Long taskId, Task task) {
-        Task existing = repo.findById(taskId).orElseThrow(() -> new ResourceNotFoundException("Task not found for updating"));
-        existing.setDescription(task.getDescription());
-        existing.setStatus(task.getStatus());
-        existing.setTitle(task.getTitle());
-        return repo.save(existing);
+    // 📥 GET BY ID
+    public TaskResponse findById(Long taskId) {
+        Task task = repo.findById(taskId)
+                .orElseThrow(() -> new ResourceNotFoundException("Task not found"));
+
+        return mapToResponse(task);
     }
-    
+
+    // ➕ CREATE
+    public TaskResponse saveTask(TaskRequest request) {
+
+        User user = userRepo.findById(request.getUserId())
+                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+
+        Task task = new Task();
+        task.setTitle(request.getTitle());
+        task.setDescription(request.getDescription());
+        task.setStatus(request.getStatus());
+        task.setUser(user);
+
+        return mapToResponse(repo.save(task));
+    }
+
+    // 🔄 UPDATE
+    public TaskResponse updateTask(Long taskId, TaskRequest request) {
+
+        Task existing = repo.findById(taskId)
+                .orElseThrow(() -> new ResourceNotFoundException("Task not found"));
+
+        User user = userRepo.findById(request.getUserId())
+                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+
+        existing.setTitle(request.getTitle());
+        existing.setDescription(request.getDescription());
+        existing.setStatus(request.getStatus());
+        existing.setUser(user);
+
+        return mapToResponse(repo.save(existing));
+    }
+
+    // ❌ DELETE
     public void deleteTask(Long taskId) {
-        if (!repo.existsById(taskId)){
+        if (!repo.existsById(taskId)) {
             throw new ResourceNotFoundException("Task not found");
         }
-        repo.deleteById(taskId); 
+        repo.deleteById(taskId);
     }
-
 }

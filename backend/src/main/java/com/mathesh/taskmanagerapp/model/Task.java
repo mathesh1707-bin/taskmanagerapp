@@ -31,6 +31,10 @@ public class Task {
         this.status = status;
     }
 
+    public Long getTaskId() {
+        return taskId;
+    }
+
     public String getTitle() {
         return title;
     }
