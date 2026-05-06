@@ -1,98 +1,168 @@
-# 🧠 Task Manager App
+# 🧠 Task Manager Application (Full Stack)
 
-A backend REST API for managing users and their tasks, built using Spring Boot.
-
-## 🚀 Features
-
-- 👤 User Management (CRUD)
-- ✅ Task Management (CRUD)
-- 🔗 User ↔ Task Relationship (One-to-Many)
-- 🛡️ Error Handling with Global Exception Handler
-- 📡 RESTful API Design
-- 💾 MySQL Database Integration
+A full-stack **Task Management Web Application** built using **Spring Boot, React, and MySQL**.
+This project demonstrates real-world backend architecture, secure authentication using JWT, and dynamic frontend integration.
 
 ---
 
-## 🏗️ Tech Stack
+## 🚀 Features
 
-- Java
-- Spring Boot
-- Spring Data JPA
-- MySQL
-- Maven
+### 🔐 Authentication & Security
+
+* User Registration & Login
+* Password hashing using BCrypt
+* JWT-based authentication (stateless)
+* Protected API endpoints using Spring Security
+
+### 📋 Task Management
+
+* Create, Read, Update, Delete (CRUD) tasks
+* Associate tasks with specific users
+* Track task status (TODO, IN_PROGRESS, DONE)
+
+### ⚙️ Backend Highlights
+
+* Layered Architecture (Controller → Service → Repository)
+* DTO-based request/response handling
+* Global Exception Handling
+* RESTful API design
+
+### 💻 Frontend (In Progress)
+
+* React-based UI
+* Login/Register pages
+* Task dashboard with CRUD operations
+* JWT token handling for API calls
+
+---
+
+## 🛠️ Tech Stack
+
+### Backend
+
+* Java 21
+* Spring Boot
+* Spring Security
+* Spring Data JPA (Hibernate)
+* MySQL
+* JWT (io.jsonwebtoken)
+
+### Frontend
+
+* React (Vite)
+* Axios
 
 ---
 
 ## 📂 Project Structure
 
-- controller → Handles API requests
-- service → Business logic
-- repository → Database access
-- model → Entity classes
+### Backend
 
-
----
-
-## 📡 API Endpoints
-
-### 👤 User APIs
-
-| Method | Endpoint | Description |
-|--------|--------|-------------|
-| POST | api/users/register | Create user |
-| GET | api/users | Get all users |
-| GET | api/users/{id} | Get user by ID |
-| PUT | api/users/{id} | Update user |
-| DELETE | api/users/{id} | Delete user |
-
----
-
-### 📋 Task APIs
-
-| Method | Endpoint | Description |
-|--------|--------|-------------|
-| POST | api/tasks | Create task for user |
-| GET | api/tasks | Get all tasks of a user |
-| GET | api/tasks/{id} | Get task by ID |
-| PUT | api/tasks/{id} | Update task |
-| DELETE | api/tasks/{id} | Delete task |
-
-
-## 🧪 Sample Request (Create Task)
-
-```json
-{
-  "title": "Learn Spring Boot",
-  "description": "Complete Task Manager project",
-  "status": "TODO"
-}
 ```
-⚙️ Setup Instructions
+com.mathesh.taskmanagerapp
+│
+├── config          # Security configurations
+├── security        # JWT utilities & filters
+├── controller      # REST controllers
+├── service         # Business logic
+├── repository      # Data access layer
+├── model           # Entities (User, Task)
+├── dto             # Request/Response DTOs
+├── exception       # Custom exception handling
+```
 
-Clone the repo
+---
 
-git clone https://github.com/your-username/taskmanagerapp.git
+## 🔑 API Endpoints
 
-Configure MySQL in application.properties
+### Auth
 
-Run the app
+* `POST /api/users/register`
+* `POST /api/users/login`
 
+### Tasks (Protected)
+
+* `GET /api/tasks`
+* `GET /api/tasks/{id}`
+* `POST /api/tasks`
+* `PUT /api/tasks/{id}`
+* `DELETE /api/tasks/{id}`
+
+---
+
+## 🔐 JWT Authentication Flow
+
+1. User logs in → receives JWT token
+2. Token is sent in headers:
+
+```
+Authorization: Bearer <token>
+```
+
+3. Backend validates token using a custom JWT filter
+4. Access granted to protected endpoints
+
+---
+
+## 🧪 Testing
+
+* Tested using Postman
+* Validated:
+
+  * Authentication flow
+  * CRUD operations
+  * Exception handling
+  * Security restrictions
+
+---
+
+## ⚡ Getting Started
+
+### Backend Setup
+
+```bash
+git clone <repo-url>
+cd backend
+mvn clean install
 mvn spring-boot:run
+```
 
+---
 
-📌 Future Improvements
+### Frontend Setup (Coming Soon)
 
-🔐 Authentication (JWT)
+```bash
+cd frontend
+npm install
+npm run dev
+```
 
-📊 Task filtering & pagination
+---
 
-🧾 DTO layer
+## 📌 Future Improvements
 
-🧪 Unit & Integration Testing
+* Role-based access (Admin/User)
+* Pagination & filtering
+* Cloud deployment (Render / Railway)
+* UI enhancements with Tailwind
+* Refresh tokens for JWT
 
-🌐 Deployment (Render / AWS)
+---
 
+## 👨‍💻 Author
 
+**Mathesh S**
+BE Computer Science Engineering
+Focused on Backend Development & Full Stack Applications
 
-👨‍💻 Author
-Mathesh S
+---
+
+## ⭐ Notes
+
+This project is built as part of an internship task to demonstrate:
+
+* Backend engineering fundamentals
+* Secure API development
+* Full-stack integration
+
+---
