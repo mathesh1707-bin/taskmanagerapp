@@ -34,7 +34,7 @@ public class UserService {
 
         User user = new User();
         user.setUsername(request.getUsername());
-        user.setPassword(passwordEncoder.encode(request.getPassword())); // 🔥 HASHING
+        user.setPassword(passwordEncoder.encode(passwordEncoder.encode(request.getPassword()))); // 🔥 HASHING
 
         User saved = repo.save(user);
 
@@ -42,19 +42,28 @@ public class UserService {
     }
 
     // 🔐 LOGIN
-    public String login(LoginRequest request) {
+    public AuthResponse login(LoginRequest request) {
 
-        User user = repo.findByUsername(request.getUsername())
-                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+    User user = repo.findByUsername(request.getUsername())
+        .orElseThrow(() ->
+            new ResourceNotFoundException("User not found"));
 
-        // 🔥 IMPORTANT: use matches()
-        if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
-            throw new BadRequestException("Invalid password");
-        }
+    if (!passwordEncoder.matches(
+            request.getPassword(),
+            user.getPassword())) {
 
-        return jwtUtil.generateToken(user.getUsername());
+        throw new BadRequestException("Invalid password");
     }
 
+    String token =
+            jwtUtil.generateToken(user.getUsername());
+
+    return new AuthResponse(
+            user.getUserId(),
+            user.getUsername(),
+            token
+    );
+}
     // 📄 GET ALL USERS
     public List<UserResponse> getAllUsers() {
         return repo.findAll().stream()
