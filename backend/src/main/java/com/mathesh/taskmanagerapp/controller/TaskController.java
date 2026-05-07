@@ -1,12 +1,12 @@
 package com.mathesh.taskmanagerapp.controller;
 
 import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.security.core.Authentication;
 import com.mathesh.taskmanagerapp.dto.task.TaskRequest;
 import com.mathesh.taskmanagerapp.dto.task.TaskResponse;
 import com.mathesh.taskmanagerapp.model.Task;
 import com.mathesh.taskmanagerapp.service.TaskService;
-
+import org.springframework.security.core.Authentication;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,8 +36,14 @@ public class TaskController {
     }
 
     @PostMapping
-    public TaskResponse saveTask(@RequestBody TaskRequest request) {
-        return service.saveTask(request);
+    public TaskResponse saveTask(
+        @RequestBody TaskRequest request,
+        Authentication authentication
+    ) {
+
+    String username = authentication.getName();
+
+    return service.saveTask(request, username);
     }
 
     @GetMapping("/{taskId}")
@@ -45,10 +51,17 @@ public class TaskController {
         return service.findById(taskId);
     }
 
-    @PutMapping("/{taskId}")
-    public TaskResponse updateTask(@PathVariable Long taskId,@RequestBody TaskRequest request) {
-        return service.updateTask(taskId, request);
-    }
+   @PutMapping("/{taskId}")
+public TaskResponse updateTask(
+        @PathVariable Long taskId,
+        @RequestBody TaskRequest request,
+        Authentication authentication
+) {
+
+    String username = authentication.getName();
+
+    return service.updateTask(taskId, request, username);
+}
 
     @DeleteMapping("/{taskId}")
     public ResponseEntity<String> deleteTask(@PathVariable Long taskId) {

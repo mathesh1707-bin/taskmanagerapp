@@ -51,10 +51,10 @@ public class TaskService {
     }
 
     // ➕ CREATE
-    public TaskResponse saveTask(TaskRequest request) {
+    public TaskResponse saveTask(TaskRequest request, String username) {
 
-        User user = userRepo.findById(request.getUserId())
-                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+        User user = userRepo.findByUsername(username)
+        .orElseThrow(() -> new ResourceNotFoundException("User not found"));
 
         Task task = new Task();
         task.setTitle(request.getTitle());
@@ -66,14 +66,14 @@ public class TaskService {
     }
 
     // 🔄 UPDATE
-    public TaskResponse updateTask(Long taskId, TaskRequest request) {
+    public TaskResponse updateTask(Long taskId,TaskRequest request,String username) {
 
         Task existing = repo.findById(taskId)
                 .orElseThrow(() -> new ResourceNotFoundException("Task not found"));
 
-        User user = userRepo.findById(request.getUserId())
+        User user = userRepo.findByUsername(username)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found"));
-
+        
         existing.setTitle(request.getTitle());
         existing.setDescription(request.getDescription());
         existing.setStatus(request.getStatus());
