@@ -35,11 +35,14 @@ public class TaskService {
     }
 
     // 📥 GET ALL
-    public List<TaskResponse> getAllTasks() {
-        return repo.findAll()
-                   .stream()
-                   .map(this::mapToResponse)
-                   .toList();
+    public List<TaskResponse> getAllTasks(String username) {
+        User user = userRepo.findByUsername(username)
+        .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+
+        return repo.findByUser(user)
+           .stream()
+           .map(this::mapToResponse)
+           .toList();
     }
 
     // 📥 GET BY ID

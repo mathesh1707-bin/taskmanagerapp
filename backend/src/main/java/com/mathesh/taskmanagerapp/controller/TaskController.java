@@ -31,8 +31,9 @@ public class TaskController {
     }
 
     @GetMapping
-    public List<TaskResponse> getTasks() {
-        return service.getAllTasks();
+    public List<TaskResponse> getTasks(Authentication authentication) {
+        String username = authentication.getName();
+        return service.getAllTasks(username);
     }
 
     @PostMapping
