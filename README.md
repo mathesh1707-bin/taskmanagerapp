@@ -1,168 +1,261 @@
-# 🧠 Task Manager Application (Full Stack)
+# Task Manager App
 
-A full-stack **Task Management Web Application** built using **Spring Boot, React, and MySQL**.
-This project demonstrates real-world backend architecture, secure authentication using JWT, and dynamic frontend integration.
+A full-stack Task Management Application built using Spring Boot, React, MySQL, and JWT Authentication.
 
----
-
-## 🚀 Features
-
-### 🔐 Authentication & Security
-
-* User Registration & Login
-* Password hashing using BCrypt
-* JWT-based authentication (stateless)
-* Protected API endpoints using Spring Security
-
-### 📋 Task Management
-
-* Create, Read, Update, Delete (CRUD) tasks
-* Associate tasks with specific users
-* Track task status (TODO, IN_PROGRESS, DONE)
-
-### ⚙️ Backend Highlights
-
-* Layered Architecture (Controller → Service → Repository)
-* DTO-based request/response handling
-* Global Exception Handling
-* RESTful API design
-
-### 💻 Frontend (In Progress)
-
-* React-based UI
-* Login/Register pages
-* Task dashboard with CRUD operations
-* JWT token handling for API calls
+This project allows users to register, log in securely, and manage their own tasks with a modern responsive UI.
 
 ---
 
-## 🛠️ Tech Stack
+# Features
 
-### Backend
+## Authentication & Security
+- User Registration
+- User Login
+- JWT Authentication
+- Protected Backend APIs
+- Protected Frontend Routes
+- Password Hashing using BCrypt
+- Spring Security Integration
 
-* Java 21
-* Spring Boot
-* Spring Security
-* Spring Data JPA (Hibernate)
-* MySQL
-* JWT (io.jsonwebtoken)
+## Task Management
+- Create Tasks
+- View Tasks
+- Update Tasks
+- Delete Tasks
+- User-Specific Tasks
+- Task Status Filtering
+- Edit Modal
+- Delete Confirmation
 
-### Frontend
+## UI & UX
+- Modern Responsive Dashboard
+- TailwindCSS Styling
+- Toast Notifications
+- Loading Spinner
+- Smooth Hover Animations
+- Responsive Grid Layout
 
-* React (Vite)
-* Axios
-
----
-
-## 📂 Project Structure
-
-### Backend
-
-```
-com.mathesh.taskmanagerapp
-│
-├── config          # Security configurations
-├── security        # JWT utilities & filters
-├── controller      # REST controllers
-├── service         # Business logic
-├── repository      # Data access layer
-├── model           # Entities (User, Task)
-├── dto             # Request/Response DTOs
-├── exception       # Custom exception handling
-```
-
----
-
-## 🔑 API Endpoints
-
-### Auth
-
-* `POST /api/users/register`
-* `POST /api/users/login`
-
-### Tasks (Protected)
-
-* `GET /api/tasks`
-* `GET /api/tasks/{id}`
-* `POST /api/tasks`
-* `PUT /api/tasks/{id}`
-* `DELETE /api/tasks/{id}`
+## Backend Architecture
+- DTO-Based API Design
+- Global Exception Handling
+- Layered Architecture
+  - Controller
+  - Service
+  - Repository
+- RESTful APIs
+- JPA & Hibernate
 
 ---
 
-## 🔐 JWT Authentication Flow
+# Tech Stack
 
-1. User logs in → receives JWT token
-2. Token is sent in headers:
+## Frontend
+- React
+- Vite
+- TailwindCSS
+- Axios
+- React Router DOM
+- React Hot Toast
 
-```
-Authorization: Bearer <token>
-```
+## Backend
+- Spring Boot
+- Spring Security
+- Spring Data JPA
+- Hibernate
+- JWT
+- Maven
 
-3. Backend validates token using a custom JWT filter
-4. Access granted to protected endpoints
-
----
-
-## 🧪 Testing
-
-* Tested using Postman
-* Validated:
-
-  * Authentication flow
-  * CRUD operations
-  * Exception handling
-  * Security restrictions
+## Database
+- MySQL
 
 ---
 
-## ⚡ Getting Started
-
-### Backend Setup
+# Project Structure
 
 ```bash
-git clone <repo-url>
+TaskManagerApp
+│
+├── backend
+│   ├── controller
+│   ├── service
+│   ├── repository
+│   ├── model
+│   ├── dto
+│   ├── security
+│   ├── exception
+│   └── config
+│
+└── frontend
+    ├── src
+    │   ├── pages
+    │   ├── components
+    │   ├── api
+    │   └── assets
+```
+
+---
+
+# API Endpoints
+
+## Authentication
+
+### Register User
+```http
+POST /api/users/register
+```
+
+### Login User
+```http
+POST /api/users/login
+```
+
+---
+
+## Tasks
+
+### Get All Tasks
+```http
+GET /api/tasks
+```
+
+### Create Task
+```http
+POST /api/tasks
+```
+
+### Update Task
+```http
+PUT /api/tasks/{taskId}
+```
+
+### Delete Task
+```http
+DELETE /api/tasks/{taskId}
+```
+
+---
+
+# Setup Instructions
+
+## Clone Repository
+
+```bash
+git clone <your-repository-url>
+```
+
+---
+
+# Backend Setup
+
+## Navigate to Backend
+
+```bash
 cd backend
-mvn clean install
+```
+
+## Configure Database
+
+Update:
+
+```properties
+src/main/resources/application.properties
+```
+
+Example:
+
+```properties
+spring.datasource.url=jdbc:mysql://localhost:3306/taskmanagerapp
+spring.datasource.username=root
+spring.datasource.password=yourpassword
+```
+
+---
+
+## Run Backend
+
+```bash
 mvn spring-boot:run
 ```
 
----
-
-### Frontend Setup (Coming Soon)
+Backend runs on:
 
 ```bash
-cd frontend
-npm install
-npm run dev
+http://localhost:7000
 ```
 
 ---
 
-## 📌 Future Improvements
+# Frontend Setup
 
-* Role-based access (Admin/User)
-* Pagination & filtering
-* Cloud deployment (Render / Railway)
-* UI enhancements with Tailwind
-* Refresh tokens for JWT
+## Navigate to Frontend
+
+```bash
+cd frontend
+```
+
+## Install Dependencies
+
+```bash
+npm install
+```
+
+## Run Frontend
+
+```bash
+npm run dev
+```
+
+Frontend runs on:
+
+```bash
+http://localhost:5173
+```
 
 ---
 
-## 👨‍💻 Author
+# Authentication Flow
 
-**Mathesh S**
-BE Computer Science Engineering
-Focused on Backend Development & Full Stack Applications
+1. User registers
+2. Password gets hashed using BCrypt
+3. User logs in
+4. JWT token generated
+5. Token stored in localStorage
+6. Axios interceptor attaches token to requests
+7. Protected APIs validate JWT
+8. User accesses only their own tasks
+
+---
+
+# Current Features Completed
+
+- JWT Authentication
+- User-Specific Task Filtering
+- Protected Routes
+- CRUD Operations
+- DTO Architecture
+- Exception Handling
+- Toast Notifications
+- Loading Spinner
+- Task Filtering
+- Responsive Dashboard UI
 
 ---
 
-## ⭐ Notes
+# Future Improvements
 
-This project is built as part of an internship task to demonstrate:
-
-* Backend engineering fundamentals
-* Secure API development
-* Full-stack integration
+- Due Dates
+- Overdue Task Highlighting
+- Dark/Light Theme Toggle
+- Search Tasks
+- Drag & Drop Tasks
+- Task Categories
+- Deployment
+- Docker Support
 
 ---
+
+# Author
+
+Mathesh Subramanian
+
+Built as a full-stack learning project using Spring Boot and React.
