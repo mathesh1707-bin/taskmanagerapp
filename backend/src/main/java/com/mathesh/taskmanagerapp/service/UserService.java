@@ -28,21 +28,25 @@ public class UserService {
     // 🔐 REGISTER
     public UserResponse register(RegisterRequest request) {
 
-        if (repo.existsByUsername(request.getUsername())) {
-            throw new BadRequestException("Username already exists");
-        }
-
-        User user = new User();
-        user.setUsername(request.getUsername());
-        user.setPassword(passwordEncoder.encode(passwordEncoder.encode(request.getPassword()))); // 🔥 HASHING
-
-        User saved = repo.save(user);
-
-        return new UserResponse(saved.getUserId(), saved.getUsername());
+    if (repo.existsByUsername(request.getUsername())) {
+        throw new BadRequestException("Username already exists");
     }
 
+    User user = new User(
+        request.getUsername(),
+        passwordEncoder.encode(request.getPassword())
+    );
+
+    User saved = repo.save(user);
+
+    return new UserResponse(
+        saved.getUserId(),
+        saved.getUsername()
+    );
+}
+
     // 🔐 LOGIN
-    public AuthResponse login(LoginRequest request) {
+   public LoginResponse login(LoginRequest request) {
 
     User user = repo.findByUsername(request.getUsername())
         .orElseThrow(() ->
@@ -50,19 +54,14 @@ public class UserService {
 
     if (!passwordEncoder.matches(
             request.getPassword(),
-            user.getPassword())) {
-
+            user.getPassword()
+    )) {
         throw new BadRequestException("Invalid password");
     }
 
-    String token =
-            jwtUtil.generateToken(user.getUsername());
+    String token = jwtUtil.generateToken(user.getUsername());
 
-    return new AuthResponse(
-            user.getUserId(),
-            user.getUsername(),
-            token
-    );
+    return new LoginResponse(token);
 }
     // 📄 GET ALL USERS
     public List<UserResponse> getAllUsers() {
