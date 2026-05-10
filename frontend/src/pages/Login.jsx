@@ -1,6 +1,7 @@
 import { useState } from "react";
 import API from "../api/axios";
 import { useNavigate, Link } from "react-router-dom";
+import toast from "react-hot-toast";
 
 function Login() {
   const navigate = useNavigate();
@@ -14,7 +15,7 @@ function Login() {
       navigate("/dashboard");
     } catch (err) {
       console.log(err.response);
-      alert(err.response?.data?.message || "Login failed");
+      toast.error(err.response?.data?.message || "Login failed");
     }
   };
 
@@ -232,19 +233,19 @@ function Login() {
         <div className="login-left">
           <div className="brand-mark">
             <div className="brand-dot" />
-            <span className="brand-name">TaskFlow</span>
+            <span className="brand-name">செயல் (Seyal)</span>
           </div>
           <div>
             <h1 className="left-heading">
-              Stay focused.<br />
-              Stay <span>organized.</span>
+              Organize,<br />
+              Track,<span>Complete.</span>
             </h1>
             <p className="left-tagline">
               Every great outcome starts with<br />a well-managed task list.
             </p>
           </div>
           <div style={{ color: 'rgba(167,197,189,0.4)', fontSize: '11px', letterSpacing: '0.1em' }}>
-            © 2025 TASKFLOW
+            © 2026 MATHESH
           </div>
         </div>
 
