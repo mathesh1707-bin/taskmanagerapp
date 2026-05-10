@@ -2,11 +2,11 @@ import { useEffect, useState } from "react";
 import API from "../api/axios";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
-import "../styles/dashboard.css";
+import "../styles/dashboard.css"; 
 const STATUS_CONFIG = {
-  TODO: { label: "To Do", color: "#1B4332", bg: "#DCF3DC", dot: "#4B8B6C" },
-  IN_PROGRESS: { label: "In Progress", color: "#7a4f00", bg: "#fff3d6", dot: "#e6a817" },
-  DONE: { label: "Done", color: "#1B4332", bg: "#A7C5BD", dot: "#1B4332" },
+  TODO: { label: "High", color: "#1B4332", bg: "#DCF3DC", dot: "#4B8B6C" },
+  IN_PROGRESS: { label: "Medium", color: "#7a4f00", bg: "#fff3d6", dot: "#e6a817" },
+  DONE: { label: "Low", color: "#1B4332", bg: "#A7C5BD", dot: "#1B4332" },
 };
 
 function Dashboard() {
@@ -14,9 +14,9 @@ function Dashboard() {
 
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [taskData, setTaskData] = useState({ title: "", description: "", status: "TODO" });
+  const [taskData, setTaskData] = useState({ title: "", description: "", status: "HIGH" });
   const [editingTask, setEditingTask] = useState(null);
-  const [editData, setEditData] = useState({ title: "", description: "", status: "TODO" });
+  const [editData, setEditData] = useState({ title: "", description: "", status: "HIGH" });
   const [filter, setFilter] = useState("ALL");
 
   const fetchTasks = async () => {
@@ -39,7 +39,7 @@ function Dashboard() {
     try {
       await API.post("/tasks", taskData);
       toast.success("Task added");
-      setTaskData({ title: "", description: "", status: "TODO" });
+      setTaskData({ title: "", description: "", status: "HIGH" });
       fetchTasks();
     } catch (err) {
       console.log(err);
@@ -115,9 +115,9 @@ function Dashboard() {
 
   const counts = {
     ALL: tasks.length,
-    TODO: tasks.filter(t => t.status === "TODO").length,
-    IN_PROGRESS: tasks.filter(t => t.status === "IN_PROGRESS").length,
-    DONE: tasks.filter(t => t.status === "DONE").length,
+    TODO: tasks.filter(t => t.status === "HIGH").length,
+    IN_PROGRESS: tasks.filter(t => t.status === "MEDIUM").length,
+    DONE: tasks.filter(t => t.status === "LOW").length,
   };
 
   return (
@@ -172,9 +172,9 @@ function Dashboard() {
                 className="add-select"
                 onChange={(e) => setTaskData({ ...taskData, status: e.target.value })}
               >
-                <option value="TODO">To Do</option>
-                <option value="IN_PROGRESS">In Progress</option>
-                <option value="DONE">Done</option>
+                <option value="HIGH">High</option>
+                <option value="MEDUIM">Medium</option>
+                <option value="LOW">Low</option>
               </select>
               <button className="btn-add" onClick={handleAddTask}>Add Task</button>
             </div>
