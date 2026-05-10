@@ -1,4 +1,4 @@
-# Kriya - Organize. Track. Complete.
+# செயல் (Seyal)  - Organize. Track. Complete.
 
 A full-stack Task Management Application built using Spring Boot, React, MySQL, and JWT Authentication.
 
@@ -256,6 +256,6 @@ http://localhost:5173
 
 # Author
 
-Mathesh Subramanian
+Mathesh S
 
 Built as a full-stack learning project using Spring Boot and React.

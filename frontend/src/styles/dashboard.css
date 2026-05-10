@@ -324,3 +324,58 @@
           .add-grid { grid-template-columns: 1fr; }
           .db-title { font-size: 32px; }
         }
+
+        .btn-complete {
+  padding: 8px 18px;
+  border-radius: 8px;
+  border: none;
+  background: #198754;
+  color: white;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-complete:hover {
+  background: #146c43;
+  transform: translateY(-1px);
+}
+
+.analytics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 18px;
+  margin-bottom: 36px;
+}
+
+.analytics-card {
+  background: #fefefe;
+  border: 1px solid #e0d9cf;
+  border-radius: 16px;
+  padding: 24px;
+  transition: all 0.2s ease;
+}
+
+.analytics-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 24px rgba(27, 67, 50, 0.08);
+}
+
+.analytics-label {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: #7a8c85;
+  margin-bottom: 12px;
+  font-weight: 500;
+}
+
+.analytics-value {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 42px;
+  font-weight: 600;
+  color: #1B4332;
+}
