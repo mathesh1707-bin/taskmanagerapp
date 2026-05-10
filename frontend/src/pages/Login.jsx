@@ -48,10 +48,10 @@ function Login() {
             <p className="login-subtitle">Sign in to continue to your workspace</p>
 
             <div className="field-wrap">
-              <label className="field-label">Username</label>
+              <label className="field-label">Username/Email</label>
               <input
                 type="text"
-                placeholder="Enter your username"
+                placeholder="Enter your username/email"
                 className="field-input"
                 onChange={(e) => setData({ ...data, username: e.target.value })}
               />

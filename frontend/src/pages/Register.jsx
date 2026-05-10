@@ -31,10 +31,10 @@ function Register() {
             <p className="reg-subtitle">Start organizing your tasks in seconds</p>
 
             <div className="field-wrap">
-              <label className="field-label">Username</label>
+              <label className="field-label">Username/Email</label>
               <input
                 type="text"
-                placeholder="Choose a username"
+                placeholder="Choose a username/email"
                 className="field-input"
                 onChange={(e) => setData({ ...data, username: e.target.value })}
               />
