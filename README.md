@@ -1,4 +1,4 @@
-# செயல் (Seyal)  - Organize. Track. Complete.
+# SeyalFlow  - Organize. Track. Complete.
 
 A full-stack Task Management Application built using Spring Boot, React, MySQL, and JWT Authentication.
 
@@ -68,30 +68,6 @@ This project allows users to register, log in securely, and manage their own tas
 ## Database
 - MySQL
 
----
-
-# Project Structure
-
-```bash
-TaskManagerApp
-│
-├── backend
-│   ├── controller
-│   ├── service
-│   ├── repository
-│   ├── model
-│   ├── dto
-│   ├── security
-│   ├── exception
-│   └── config
-│
-└── frontend
-    ├── src
-    │   ├── pages
-    │   ├── components
-    │   ├── api
-    │   └── assets
-```
 
 ---
 
@@ -248,8 +224,6 @@ http://localhost:5173
 - Dark/Light Theme Toggle
 - Search Tasks
 - Drag & Drop Tasks
-- Task Categories
-- Deployment
 - Docker Support
 
 ---

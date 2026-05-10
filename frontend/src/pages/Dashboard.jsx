@@ -165,7 +165,7 @@ function Dashboard() {
       <nav className="db-nav">
         <div className="nav-brand">
           <div className="nav-brand-dot" />
-          <span className="nav-brand-name"><i>செயல்</i> (Seyal)</span>
+          <span className="nav-brand-name">செயல் - <i>"something that you do"</i></span> 
         </div>
         <div className="nav-right">
           <span className="nav-task-count">
