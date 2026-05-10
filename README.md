@@ -1,4 +1,4 @@
-# Task Manager App
+# Kriya - Organize. Track. Complete.
 
 A full-stack Task Management Application built using Spring Boot, React, MySQL, and JWT Authentication.
 

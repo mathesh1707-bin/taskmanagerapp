@@ -663,7 +663,7 @@ function Dashboard() {
         <nav className="db-nav">
           <div className="nav-brand">
             <div className="nav-brand-dot" />
-            <span className="nav-brand-name">TaskFlow</span>
+            <span className="nav-brand-name">KRIYA</span>
           </div>
           <div className="nav-right">
             <span className="nav-task-count">{tasks.length} task{tasks.length !== 1 ? "s" : ""}</span>
